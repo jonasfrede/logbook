@@ -2,6 +2,9 @@
 *.glo
 *.idx
 *.log
+*.lox
+*.bcf
+*.fls
 *.toc
 *.ist
 *.acn
@@ -20,5 +23,8 @@
 *.mtc
 *.mtc1
 *.out
+*.fdb_latexmk
 *.synctex.gz
 *.run.xml
+
+MathLog.pdf

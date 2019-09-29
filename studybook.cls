@@ -176,6 +176,10 @@
 % REQUIRED PACKAGES
 %------------------------------------------------------------------------------
 
+% Silence a specific obsolete warning
+\RequirePackage{silence}
+\WarningFilter{remreset}{The remreset package}
+
 % Essentials
 \RequirePackage{babel} % automatically changing names of document elements by language
 \RequirePackage{scrbase} % handling language-dependent names of sections/document elements
