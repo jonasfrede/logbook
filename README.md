@@ -1,4 +1,4 @@
-# A Mathematician's $\log$book
+# A Mathematician's logbook
 
 The idea for this project came out of a post by someone who religiously took LaTeX notes of everything he had learned, every day, like a logbook. Since I forfeit the chance to do that during my studies but still had all my hand-written lecture notes and the course material, I wanted to start something in a similar vein.
 
