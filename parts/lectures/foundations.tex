@@ -1,0 +1,54 @@
+% !TEX root = ../../MathLog.tex
+
+\chapter{\IfLanguageName{english}{Foundations of Mathematics}{Grundlagen der Mathematik}}
+
+\IfLanguageName{english}{\todonote{translate introductory paragraph}}{Wo beginnt man am Besten mit den Grundlagen in der Mathematik? Ich denke, es ist sinnvoll, sich klar zu machen, dass die Grenze zwischen Grundlagen und fortgeschrittenem Material oftmals nicht klar gezogen werden kann. Allerdings möchte ich es trotzdem wagen, ein paar Themen als Grundlagen vorzustellen, um auf diesem Fundament weitere Bereiche der Mathematik zu entdecken und zu erarbeiten.}
+
+\section{\IfLanguageName{english}{Elements of Logic}{Elemente der Logik}}
+
+\IfLanguageName{english}{\todonote{translate everything here}}{Ein Thema, welches man wohl in jedem Fall am Anfang erwähnen möchte, weil sie das täglich Brot eines Mathematikers oder Mathematikstudenten bilden, sind \emph{logische Aussagen}. Eine logische Aussage ist ein Satz, der einen eindeutigen \emph{Wahrheitswert} besitzt, also entweder wahr oder falsch ist (wir nutzen das Prinzip des ausgeschlossenen Dritten, lat. tertium non datur):
+
+\begin{example}
+  Der Satz \enquote{1 ist eine positive Zahl} ist wahr, wohingegen \enquote{2 ist eine negative Zahl} oder \enquote{Der Mond ist aus Käse} falsch ist. Alle drei Sätze sind also logische Aussagen. Je nach Wetterlage hat die Aussage \enquote{Die Sonne scheint.} einen eindeutig bestimmten Wahrheitsgehalt, ist also ebenfalls eine logische Aussage. \enquote{Hallo!} oder \enquote{Möchtest du etwas essen?} sind keine logischen Aussagen, da ihnen kein Wahrheitsgehalt sinnvoll zugeordnet werden kann.
+\end{example}
+
+Das Beispiel des Wetters zeigt bereits, dass der Wahrheitsgehalt einer Aussage vom Kontext abhängig sein kann. In der Mathematik versucht man daher, den Kontext möglichst klar zu formulieren und daher alle Aussagen, die man trifft, auf einige wenige Grundannahmen zurück zu führen, die man als wahr annehmen muss. Diese Grundannahmen nennt man \emph{Axiome}. Man könnte beispielsweise das Prinzip des ausgeschlossenen Dritten als Axiom verstehen. Eine genauere und tiefere Betrachtung von Axiomen verschieben wir jedoch auf ein späteres Kapitel.
+
+Eine wichtige Erweiterung logischer Aussagen sind so genannte \emph{Aussageformen}. Dies sind Aussagen, die eine oder mehrere freie Variablen enthalten, zum Beispiel \enquote{$x$ ist eine negative Zahl}. Der Wahrheitswert kann im Allgemeinen erst dann ermittelt werden, wenn die Variablen durch Konstanten ersetzt wurden: Für $x=-10$ ist die Aussage wahr, für $x=1$ ist sie falsch. Es gibt allerdings Aussageformen, die immer wahr beziehungsweise falsch sind: ein Beispiel wäre \enquote{Es ist entweder $x$ eine Zahl oder keine Zahl.}
+
+Weiterhin möchten wir Aussagen mit \emph{Quantifizierungen} betrachten, welche die wohl häufigste Art von logischen Aussagen im mathematischen Gebrauch sind.
+
+\begin{example}
+  Eine Aussage wie \enquote{Es gibt eine reelle Zahl $x$, so dass $x^2 \leq 2$} ist eine Existenzaussage,
+  eine Aussage wie \enquote{Für alle positiven reellen Zahlen $x$ gilt $x^2 \leq 1$} ist eine Allaussage.
+\end{example}
+
+Der \emph{Quantor} \enquote{Es gibt} wird mit $\exists$ abgekürzt, der Quantor \enquote{Für alle} mit $\forall$.
+
+\begin{example}[fortgesetzt]
+  Die erste Aussage oben lässt sich schreiben als \enquote{$\exists x \in \RR$, s.d. $x^2 \leq 2$}, die zweite Aussage als \enquote{$\forall x \in \RR_{>0}$ ist $x^2 \leq 1$}.
+\end{example}
+
+Aussagen mit Quantifizierungen haben wieder nur einen Wahrheitswert. Die erste Aussage des Beispiels ist wahr, die zweite falsch. Da wir nun im Vorgriff bereits ein paar Mengen genutzt haben, die wir eigentlich noch nicht wirklich kennen, wollen wir diese zuerst einmal nur über ihre Notation einführen:
+
+\begin{notation}[Ein paar Mengen]
+  \mbox{}
+  \begin{itemize}
+    \item $\RR$ sind die reellen Zahlen. Diese wollen wir später noch genauer charakterisieren.
+    \item $\ZZ$ sind die ganzen Zahlen $\{\ldots,-2,-1,0,1,2,\ldots\}$.
+    \item $\NN$ sind die natürlichen Zahlen $\{1,2,3,\ldots\}$, $\NN_0$ ist $\{0,1,2,3,\ldots\}$.
+    \item $\QQ$ sind die rationalen Zahlen \(\setdef{\frac{p}{q}}[p \in \ZZ, q \in \NN]\).
+  \end{itemize}
+\end{notation}
+
+% Aussonderungsaxiom - Axiomenschema (s.u.)
+% Aussagenkalkül, Wahrheitstafeln, logische Operatoren
+% notwendig & hinreichend !!!
+
+\section{Mengen}
+
+% Mengenkram, Operatoren und so.
+
+\section{Axiomatische Mengenlehre}
+
+Unsere bisher naive Behandlung von Mengen soll hier durch ein grundlegendes Axiomensystem fundiert werden, welches 1930 von \textcite{Zerme:UeberGrenzzahlenund} eingeführt wurde. Das Axiomensystem wird daher auch als ZF(-System) bezeichnet. Oftmals möchte man ebenfalls das so genannte Auswahlaxiom (Axiom of Choice) zu diesem System hinzufügen, dann nennt man das System auch ZFC.}

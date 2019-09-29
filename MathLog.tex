@@ -1,0 +1,181 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ------------------- Mathematical Logbook - by Jonas Frede -------------------
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% NOTE: This document can switch between printing and on-screen version.
+% NOTE: Also, english and german versions are available.
+%
+%------------------------------------------------------------------------------
+% DOCUMENT CLASS AND INCLUDED CONFIGURATIONS
+%------------------------------------------------------------------------------
+
+\documentclass[% NOTE: Switch between a5paper and a4paper here
+a4paper,11pt, % The default document font size, options: 10pt, 11pt, 12pt
+oneside, % Two side (alternating margins) for binding by default, uncomment to switch to one side
+english, ngerman, % Babel: English, of course, and ngerman for German (duh)
+onehalfspacing, % singlespacing, alternatives: onehalfspacing or doublespacing
+%draft, % Uncomment to enable draft mode (no pictures, no links, overfull hboxes indicated)
+%nolistspacing, % If the document is onehalfspacing or doublespacing, uncomment this to set spacing in lists to single
+%liststotoc, % Uncomment to add the list of figures/tables/etc to the table of contents
+%toctotoc, % Uncomment to add the main table of contents to the table of contents
+parskip=half-, % Add space between paragraphs, allows for multiple parameters
+%nohyperref, % Uncomment to not load the hyperref package
+%headsepline, % Uncomment to get a line under the header
+%footsepline, % Uncomment to get a line over the footer
+chapterinoneline, % Uncomment to place the chapter title next to the number on one line
+numbers=noenddot, % Uncomment for Definition 2.3 instead of 2.3.
+%dvipsnames, % xcolor parameter
+]{studybook}
+
+%\parfillskip=0pt % All paragraphs become rectangles, just for the lulz, usually throws many warnings
+
+%------------------------------------------------------------------------------
+% ENCODINGS AND FONT PACKAGES
+%------------------------------------------------------------------------------
+
+\usepackage[T1]{fontenc} % Encoding in PDF
+\usepackage[utf8]{inputenx} % UTF8-encoding in source file
+\usepackage{fourier} % Main font package!
+%\usepackage{fontawesome} % For nice symbols
+\usepackage{bm} % Bold math symbols (must be loaded after fonts)
+
+%------------------------------------------------------------------------------
+% BIBLIOGRAPHY, INDEX AND CITATIONS
+%------------------------------------------------------------------------------
+
+\usepackage[hyperref, backref, backend=biber, bibencoding=utf8, style=numeric, sorting=nty, sortcites=true]{biblatex}
+\usepackage[autostyle=true]{csquotes}
+\usepackage{makeidx}
+
+\addbibresource{logreferences.bib}
+\makeindex
+
+%------------------------------------------------------------------------------
+% GENERAL INFORMATION
+%------------------------------------------------------------------------------
+
+\documenttitle{\IfLanguageName{english}{A Mathematician's Logbook}{Logbuch eines Mathematikers}} % The document title, print it elsewhere with \doctitle
+\author{Jonas Frede} % Your name, print it elsewhere with \authorname
+\keywords{mathematics} % Keywords, print it elsewhere with \keywordnames
+
+\AtBeginDocument{
+\hypersetup{english}
+\hypersetup{pdftitle=\doctitle} % Set the PDF's title to your title
+\hypersetup{pdfauthor=\authorname} % Set the PDF's author to your name
+\hypersetup{pdfkeywords=\keywordnames} % Set the PDF's keywords to your keywords
+}
+
+\usepackage{preamble} % all custom commands go here TODO: split this file!
+
+%------------------------------------------------------------------------------
+% MARGIN AND TYPOGRAPHY LAYOUT SETTINGS
+%------------------------------------------------------------------------------
+
+% uncomment to show how the textframe is set on the page
+%\geometry{showframe}
+
+\widegeometry % NOTE: Change page margins between onscreengeometry (a5paper) and widegeometry (a4paper)
+
+\usepackage[%
+activate={true,nocompatibility}, % activate={true,nocompatibility} - activate protrusion and expansion
+final, % final - enable microtype; use "draft" to disable
+tracking=true, % tracking=true, kerning=true, spacing=true - activate these techniques
+kerning=true, %
+spacing=true, %
+factor=1100, % add 10% to the protrusion amount (default is 1000)
+stretch=10, %
+shrink=10 % reduce stretchability/shrinkability (default is 20/20)
+]{microtype}
+
+%------------------------------------------------------------------------------
+% DOCUMENT START AND LANGUAGE SELECTION
+%------------------------------------------------------------------------------
+
+\begin{document}
+\frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the pre-content pages
+\pagestyle{empty} % Default to the empty heading style until the book style is called for the body content
+
+\selectlanguage{english} % NOTE: Select the displayed language
+
+%------------------------------------------------------------------------------
+% TITLE PAGE
+%------------------------------------------------------------------------------
+
+\begin{titlepage}
+\begin{center}
+
+% Spacing
+\vspace*{.06\textheight}
+%\vspace{1cm}
+\mbox{}\\[0.1cm]
+
+\thinRule\par% Horizontal line
+{\fontsize{40pt}{36pt}\scshape\doctitle\par} % Title
+\par\thinRule% Horizontal line
+
+\vfill
+
+\begin{minipage}[t]{0.5\textwidth}
+\begin{center} \large
+\emph{\IfLanguageName{english}{Author}{Autor}:}\\
+{\authorname}
+\end{center}
+\end{minipage}\\[1.5cm]
+
+\vfill
+
+\large\textit{\IfLanguageName{english}{A document written in LaTeX}{Ein Dokument, geschrieben in LaTeX} \\ \IfLanguageName{english}{containing a selection of topics}{enthält eine Auswahl an Themen} \\ \IfLanguageName{english}{to study for a mathematics degree}{zum Studium der Mathematik}}\\[1cm]
+\textit{\IfLanguageName{english}{created for students and interested parties}{für Studenten und Interessierte}}\\[2cm]
+
+\vfill
+
+\IfLanguageName{english}{English version of \today}{Deutsche Version vom \today}\\[3cm] % Date, uses iflang switch
+
+\vfill
+\end{center}
+\end{titlepage}
+
+%------------------------------------------------------------------------------
+% LIST OF CONTENTS/FIGURES/TABLES PAGES
+%------------------------------------------------------------------------------
+
+\pagestyle{plain}
+\setcounter{page}{0} % next page will be page I
+\pagenumbering{Roman} % big roman numbering
+
+\input{parts/introduction}
+
+\tableofcontents%
+\listoffixmes%
+
+%------------------------------------------------------------------------------
+% CONTENT - CHAPTERS
+%------------------------------------------------------------------------------
+
+\mainmatter % Begin numeric (1,2,3...) page numbering
+\pagestyle{book} % Return the page headers back to the main style
+
+% Include the chapters as separate files inside the grouping files below
+\input{parts/lectures}
+\input{parts/exercises}
+
+%------------------------------------------------------------------------------
+% CONTENT - APPENDICES
+%------------------------------------------------------------------------------
+
+\part{Appendices}
+\appendix % Tell the documentclass that the appendices start here
+
+% Include the appendices as separate files, inside the appendices file
+\input{parts/appendices}
+
+%------------------------------------------------------------------------------
+% BIBLIOGRAPHY & INDEX
+%------------------------------------------------------------------------------
+
+%\nocite{*} % Cite all papers, regardless of citation
+\printbibliography[heading=bibintoc]
+\printindex
+
+%------------------------------------------------------------------------------
+\end{document}

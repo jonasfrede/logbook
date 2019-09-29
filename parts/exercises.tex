@@ -1,0 +1,35 @@
+% !TEX root = ../MathLog.tex
+
+\newbool{printSolutions} % declare a variable to print solutions
+\booltrue{printSolutions} % set true with \booltrue, false with \boolfalse
+
+% Write solutions in \ifbool{printSolutions}{ ... }{}
+
+\part{\IfLanguageName{english}{Exercises}{Aufgaben}}
+
+\input{parts/exercises/foundations}
+
+\section{\IfLanguageName{english}{Test exercise}{Testaufgabe}}
+
+\IfLanguageName{english}{Exercise here}{Aufgabe hier}.
+
+\ifbool{printSolutions}{
+  \IfLanguageName{english}{Solution here}{Lösung hier}.
+}{}
+
+\input{parts/exercises/linear_algebra}
+\input{parts/exercises/algebra}
+\input{parts/exercises/number_theory}
+
+\input{parts/exercises/analysis}
+\input{parts/exercises/topology}
+\input{parts/exercises/geometry}
+\input{parts/exercises/complex_analysis}
+\input{parts/exercises/differential_geometry}
+
+\input{parts/exercises/algorithms}
+\input{parts/exercises/numerical_analysis}
+\input{parts/exercises/optimization}
+\input{parts/exercises/discrete}
+
+\input{parts/exercises/probability_theory}

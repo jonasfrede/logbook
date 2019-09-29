@@ -1,0 +1,411 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ---- A collection of commands (for the studybook class) - by Jonas Frede ----
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ProvidesPackage{preamble}
+
+%------------------------------------------------------------------------------
+% MATH DEFINITIONS
+%------------------------------------------------------------------------------
+
+% ------ RedeclareMathOperator -- made by egreg on tex.stackexchange.com ------
+\makeatletter
+\newcommand\RedeclareMathOperator{%
+  \@ifstar{\def\rmo@s{m}\rmo@redeclare}{\def\rmo@s{o}\rmo@redeclare}%
+}
+% this is taken from \renew@command
+\newcommand\rmo@redeclare[2]{%
+  \begingroup \escapechar\m@ne\xdef\@gtempa{{\string#1}}\endgroup
+  \expandafter\@ifundefined\@gtempa
+     {\@latex@error{\noexpand#1undefined}\@ehc}%
+     \relax
+  \expandafter\rmo@declmathop\rmo@s{#1}{#2}}
+% This is just \@declmathop without \@ifdefinable
+\newcommand\rmo@declmathop[3]{%
+  \DeclareRobustCommand{#2}{\qopname\newmcodes@#1{#3}}%
+}
+\@onlypreamble\RedeclareMathOperator
+\makeatother
+
+
+% CupDot and BigCupDot - from Heiko: https://tex.stackexchange.com/a/110981
+\makeatletter
+\providecommand*{\cupdot}{%
+  \mathbin{%
+    \mathpalette\@cupdot{}%
+  }%
+}
+\newcommand*{\@cupdot}[2]{%
+  \ooalign{%
+    $\m@th#1\cup$\cr
+    \sbox0{$#1\cup$}%
+    \dimen@=\ht0 %
+    \sbox0{$\m@th#1\cdot$}%
+    \advance\dimen@ by -\ht0 %
+    \dimen@=.5\dimen@
+    \hidewidth\raise\dimen@\box0\hidewidth
+  }%
+}
+
+\providecommand*{\bigcupdot}{%
+  \mathop{%
+    \vphantom{\bigcup}%
+    \mathpalette\@bigcupdot{}%
+  }%
+}
+\newcommand*{\@bigcupdot}[2]{%
+  \ooalign{%
+    $\m@th#1\bigcup$\cr
+    \sbox0{$#1\bigcup$}%
+    \dimen@=\ht0 %
+    \advance\dimen@ by -\dp0 %
+    \sbox0{\scalebox{2}{$\m@th#1\cdot$}}%
+    \advance\dimen@ by -\ht0 %
+    \dimen@=.5\dimen@
+    \hidewidth\raise\dimen@\box0\hidewidth
+  }%
+}
+\makeatother
+
+% Define \pmod* - made by egreg: https://tex.stackexchange.com/a/39222/146988
+\makeatletter
+\let\@@pmod\pmod
+\DeclareRobustCommand{\pmod}{\@ifstar\@pmods\@@pmod}
+\def\@pmods#1{\mkern4mu({\operator@font mod}\mkern 6mu#1)}
+\makeatother
+
+% mathematical smallcaps
+\newcommand{\mathsc}[1]{{\normalfont\textsc{#1}}}
+
+% We just want beautiful symbols: Redefinitions of commands!
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\phi}{\varphi}
+\renewcommand{\emptyset}{\varnothing}
+
+% \suchthat command for sets with height of | fixed to \left\{ ... \right\} environment.
+\newcommand{\suchthat}{\;\ifnum\currentgrouptype=16 \middle\fi|\;}
+
+%------------------------------------------------------------------------------
+
+\newcommand{\nn}{{n \times n}} % For matrix spaces
+
+% Use other font for these vectors
+\DeclareMathAlphabet{\mymathbb}{U}{BOONDOX-ds}{m}{n}
+\newcommand{\onevec}{\mymathbb{1}} % all ones vector, or characteristic function
+\newcommand{\zerovec}{\mymathbb{0}} % all zero vector
+
+\DeclareMathOperator{\GL}{GL} % General Linear group
+\DeclareMathOperator{\SL}{SL} % Special Linear group
+\DeclareMathOperator{\img}{im} % Image of a function, similar to \ker
+
+\newcommand{\Ex}{\mathbb{E}} % Expectation
+\newcommand{\Prob}{\mathbb{P}} % Probability
+\newcommand{\RP}{\mathbb{R}\mathrm{P}} % Real Projective Space
+
+\newcommand{\abs}[1]{{\left\lvert #1 \right\rvert}} % absolute value
+\newcommand{\norm}[2][]{{\left\lVert #2 \right\rVert_{#1}}} % norm
+
+\newcommand{\ip}[1]{\left\langle #1 \right\rangle} % inner product
+\newcommand{\ipd}[2]{#1 \cdot #2} % another notation for inner product
+
+\newcommand{\floor}[1]{\left \lfloor #1 \right \rfloor} % rounding
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil} % rounding up
+\newcommand{\ol}{\overline} % shorter overline command
+\newcommand{\ul}{\underline} % shorter underline command
+\newcommand{\dual}[1]{{#1}^\star} % dual set
+\newcommand{\trans}{\intercal} % transpose sign
+\newcommand{\dif}{\mathrm{d}} % differentials
+
+%------------------------------------------------------------------------------
+
+% For german language
+\NewDocumentCommand\KK{}{\mathbb{K}} % Körper
+\DeclareMathOperator{\Abb}{Abb} % Abbildungen
+
+% -----------------------------------------------------------------------------
+% -------------------------------- IMO-DiscOpt --------------------------------
+% -----------------------------------------------------------------------------
+
+% Mostlz extracted from: http://www.matthiaswalter.org/latex/ - with minor changes
+% Most DeclareDocumentCommand have been replaced by NewDocumentCommand or RenewDocumentCommand
+% Mostly because these were recommended to me
+% Also changed the bracket spacing, so it is closer to the operator
+
+% Algebra
+% sym-group
+\NewDocumentCommand\symgroup{m}{\mathcal{S}_{#1}}
+
+% Asymptotics
+% order-big-O
+\NewDocumentCommand\orderO{o}{\mathcal{O}\IfValueTF{#1}{\!\left(#1\right)}{}}
+% order-little-o
+\NewDocumentCommand\ordero{o}{o\IfValueTF{#1}{\!\left(#1\right)}}
+% order-omega
+\NewDocumentCommand\orderOmega{o}{\Omega\IfValueTF{#1}{\!\left(#1\right)}{}}
+% order-small-omega
+\NewDocumentCommand\orderomega{o}{\omega\IfValueTF{#1}{\!\left(#1\right)}{}}
+% order-theta
+\NewDocumentCommand\orderTheta{o}{\Theta\IfValueTF{#1}{\!\left(#1\right)}}
+
+% Basics
+% cardinality
+\DeclareDocumentCommand\card{m}{\left|#1\right|}
+% disjoint-union
+\NewDocumentCommand\dcup{}{\cupdot} % see custom definition above
+\NewDocumentCommand\bdcup{}{\bigcupdot}
+% encoding-length
+\NewDocumentCommand\enclen{m}{\left<#1\right>}
+% encoding
+\NewDocumentCommand\encoding{m}{\llcorner#1\lrcorner}
+% set
+\NewDocumentCommand\setdef{mo}{\left\{#1\IfNoValueTF{#2}{}{ \suchthat #2}\right\}}
+
+%Complexity
+% complexity-NP
+\NewDocumentCommand\cplxNP{}{\mathsf{NP}}
+% complexity-P
+\NewDocumentCommand\cplxP{}{\mathsf{P}}
+% complexity-coNP
+\NewDocumentCommand\cplxcoNP{}{\mathsf{coNP}}
+% karp-reduction
+\NewDocumentCommand\leqkarp{}{\mathop{\preceq_{\mathsf{P}}}}
+
+%Graphs
+% in-arcs
+\NewDocumentCommand\inarcs{m}{\delta^{\text{in}}\!\left(#1\right)}
+% in-neighbors
+\NewDocumentCommand\inneigh{m}{\operatorname{N}^-\!\left(#1\right)}
+% neighbors
+\NewDocumentCommand\neigh{m}{\operatorname{N}\!\left(#1\right)}
+% out-arcs
+\NewDocumentCommand\outarcs{m}{\delta^{\text{out}}\!\left(#1\right)}
+% out-neighbors
+\NewDocumentCommand\outneigh{m}{\operatorname{N}^+\!\left(#1\right)}
+% star-edges
+\NewDocumentCommand\staredges{m}{\delta\!\left(#1\right)}
+
+%Linear Algebra
+% affine-hull
+\NewDocumentCommand\aff{o}{\operatorname{aff}\IfValueTF{#1}{\!\left(#1\right)}{}}
+% boundary
+\NewDocumentCommand\bd{o}{\operatorname{bd}\IfValueTF{#1}{\!\left(#1\right)}{}}
+% closure
+\NewDocumentCommand\cl{o}{\operatorname{cl}\IfValueTF{#1}{\!\left(#1\right)}{}}
+% columns
+\NewDocumentCommand\cols{o}{\operatorname{cols}\IfValueTF{#1}{\!\left(#1\right)}{}}
+% conic-hull
+\NewDocumentCommand\cone{o}{\operatorname{cone}\IfValueTF{#1}{\!\left(#1\right)}{}}
+% convex-conic-hull
+\NewDocumentCommand\ccone{o}{\operatorname{ccone}\IfValueTF{#1}{\!\left(#1\right)}{}}
+% convex-hull
+\NewDocumentCommand\conv{o}{\operatorname{conv}\IfValueTF{#1}{\!\left(#1\right)}{}}
+% determinant NOTE: Overwrites old \det
+\RenewDocumentCommand\det{o}{\operatorname{det}\IfValueTF{#1}{\!\left(#1\right)}{}}
+% dimension NOTE: Overwrites old \dim
+\RenewDocumentCommand\dim{o}{\operatorname{dim}\IfValueTF{#1}{\!\left(#1\right)}{}}
+% direction-space
+\NewDocumentCommand\dir{o}{\operatorname{dir}\IfValueTF{#1}{\!\left(#1\right)}{}}
+% equation-set
+\NewDocumentCommand\eqnset{om}{\IfValueTF{#1}{\mathop{\text{Eq}}_{#1}}{\mathop{\text{Eq}}}\!\left(#2\right)}
+% identity-matrix
+\NewDocumentCommand\idmat{o}{\IfNoValueTF{#1}{\mathbb{I}}{\mathbb{I}_{#1}}}
+% image
+\NewDocumentCommand\im{o}{\operatorname{im}\IfValueTF{#1}{\!\left(#1\right)}{}}
+% interior
+\NewDocumentCommand\inter{o}{\operatorname{int}\IfValueTF{#1}{\!\left(#1\right)}{}}
+% kernel
+\RenewDocumentCommand\ker{o}{\operatorname{ker}\IfValueTF{#1}{\!\left(#1\right)}{}}
+% lineality-space
+\NewDocumentCommand\lineal{o}{\operatorname{lineal}\IfValueTF{#1}{\!\left(#1\right)}{}}
+% linear-hull
+\NewDocumentCommand\lin{o}{\operatorname{lin}\IfValueTF{#1}{\!\left(#1\right)}{}}
+% polar
+\NewDocumentCommand\polar{m}{#1^{\circ}}
+% projection
+\NewDocumentCommand\proj{oo}{\IfValueTF{#1}{\operatorname{proj}{}_{#1}}{\operatorname{proj}{}}\IfValueTF{#2}{\!\left(#2\right)}{}}
+% sym-matrices
+\NewDocumentCommand\symmat{m}{\mathbbm{S}^{#1}}
+% psd-matrices
+\NewDocumentCommand\psdmat{m}{\mathbbm{S}^{#1}_+}
+% rank
+\NewDocumentCommand\rank{o}{\operatorname{rank}\IfValueTF{#1}{\!\left(#1\right)}{}}
+% non-negative rank
+\NewDocumentCommand\rankp{o}{\operatorname{rank_+}\IfValueTF{#1}{\!\left(#1\right)}{}}
+% positive semidefinite rank
+\NewDocumentCommand\ranks{o}{\operatorname{rank_{SDP}}\IfValueTF{#1}{\!\left(#1\right)}{}}
+% rows
+\NewDocumentCommand\rows{o}{\operatorname{rows}\IfValueTF{#1}{\!\left(#1\right)}{}}
+% scalar-product
+\NewDocumentCommand\scalprod{mm}{\left<#1,#2\right>}
+% sec-order-cone
+\NewDocumentCommand\socone{m}{\mathbb{L}^{#1}}
+% sign
+\NewDocumentCommand\sgn{o}{\operatorname{sgn}\IfValueTF{#1}{\!\left(#1\right)}{}}
+% support
+\NewDocumentCommand\supp{o}{\operatorname{supp}\IfValueTF{#1}{\!\left(#1\right)}{}}
+% trace
+\NewDocumentCommand\tr{o}{\operatorname{tr}\IfValueTF{#1}{\!\left(#1\right)}{}}
+% transpose
+\NewDocumentCommand\transpose{m}{#1^{\intercal}}
+% unit-vector
+\NewDocumentCommand\unitvec{m}{\mathbbm{e}_{#1}}
+% diagonalization
+\NewDocumentCommand\diag{m}{\operatorname{diag}\IfValueTF{#1}{\!\left(#1\right)}{}}
+
+% Polyhedra
+% ext-complexity (linear)
+\NewDocumentCommand\xc{o}{\operatorname{xc}\IfValueTF{#1}{\!\left(#1\right)}{}}
+% ext-complexity (semidef)
+\NewDocumentCommand\xcs{o}{\operatorname{xc_{SDP}}\IfValueTF{#1}{\!\left(#1\right)}{}}
+% normal-cone
+\NewDocumentCommand\normalCone{mm}{\operatorname{N}_{#1}\!\left(#2\right)}
+% poly-faces
+\NewDocumentCommand\polyFaces{o}{\mathop{\mathcal{F}}\IfValueTF{#1}{\!\left(#1\right)}{}}
+% poly-facets
+\NewDocumentCommand\polyFacets{o}{\mathop{\widehat{\mathcal{F}}}\IfValueTF{#1}{\!\left(#1\right)}{}}
+% poly-lattice
+\NewDocumentCommand\polyLattice{o}{\mathop{\mathcal{L}}\IfValueTF{#1}{\!\left(#1\right)}{}}
+% poly-vertices
+\NewDocumentCommand\polyVerts{o}{\mathop{\mathcal{V}}\IfValueTF{#1}{\!\left(#1\right)}{}}
+% radial-cone
+\NewDocumentCommand\radialCone{mm}{\operatorname{K}_{#1}\!\left(#2\right)}
+
+% Sets
+
+% naturals
+\NewDocumentCommand\NN{}{\mathbb{N}}
+% integers
+\NewDocumentCommand\ZZ{}{\mathbb{Z}}
+% rationals
+\NewDocumentCommand\QQ{}{\mathbb{Q}}
+% reals
+\NewDocumentCommand\RR{}{\mathbb{R}}
+% fields
+\NewDocumentCommand\FF{}{\mathbb{F}}
+% complex
+\NewDocumentCommand\CC{}{\mathbb{C}}
+
+
+
+%------------------------------------------------------------------------------
+% TIKZ DEFINITIONS
+%------------------------------------------------------------------------------
+
+% --- Batman-Symbol ---
+\newcommand{\batman}[1][0.06]{% Scale 0.06 looks good in text.
+\begin{tikzpicture}[scale=#1]
+\draw[fill,black]   (-0.25,1.48) .. controls (-0.1,1.5) and (0.1,1.5) .. (0.25,1.48) -- (0.35,1.92) .. controls (0.425,1.8) and (0.41,1.3) .. (0.45,1.2) .. controls (0.6,1.05) and (1.96,1.05) .. (1.98,2.08) -- (5.93,2.08) .. controls (4.2,1.45) and (4,0.3) .. (4.2,-0.28) .. controls (2.4,-0.09) and (0.4,-0.5) .. (0,-2.052) .. controls (-0.4,-0.5) and (-2.4,-0.09) .. (-4.2,-0.28) .. controls (-4,0.3) and (-4.2,1.45) .. (-5.93,2.08) -- (-1.98,2.08) .. controls (-1.96,1.05) and (-0.6,1.05) .. (-0.45,1.2) .. controls (-0.41,1.3) and (-0.425,1.8) .. (-0.35,1.92) -- (-0.25,1.48);
+\end{tikzpicture} }
+
+\usetikzlibrary{arrows}
+\usetikzlibrary{shapes}
+\usetikzlibrary{matrix}
+\usetikzlibrary{fadings}
+\usetikzlibrary{patterns}
+\usetikzlibrary{decorations.pathreplacing}
+
+% Big Image fading from top
+\tikzfading[name=fade top, top color=transparent!0, bottom color=transparent!100]
+
+\tikzstyle{filled} = [circle, draw, fill=white, outer sep=0pt, inner sep=1pt, minimum width=5pt]
+\tikzstyle{arrow_edge} = [line width=0.5, -{Latex[length=2mm]}]
+
+
+%------------------------------------------------------------------------------
+% MISC DEFINITIONS
+%------------------------------------------------------------------------------
+
+% part-command without page number --- from stackexchange
+\makeatletter
+\renewcommand\part{%
+  \if@openright
+    \cleardoublepage
+  \else
+    \clearpage
+  \fi
+  \thispagestyle{empty}%   % Original »plain« replaced by »empty«
+  \if@twocolumn
+    \onecolumn
+    \@tempswatrue
+  \else
+    \@tempswafalse
+  \fi
+  \null\vfil
+  \secdef\@part\@spart}
+\makeatother
+
+% intelligent referencing (Format: \reference{text}{label})
+\newcommand{\reference}[2]{\hyperref[#2]{#1~\ref*{#2}}}
+% compact referencing (Format: \refer[text][label])
+\newcommand{\refer}[2][]{\hyperref[#2]{\ifthenelse{\isempty{#1}}{\ref*{#2}}{#1~\ref*{#2}}}}
+\renewcommand\thesubfigure{(\alph{subfigure})} % intelligent referencing of subfigures
+
+% Definition of keywords with marginnote and index referencing TODO
+\newcommand{\define}[1]{%
+  \emph{#1}%
+  %\marginnote{#1}[#2]%
+}
+
+% Commands for producing superscripts and subscripts in text
+\newcommand{\superscript}[1]{\ensuremath{^{\textrm{#1}}}}
+\newcommand{\subscript}[1]{\ensuremath{_{\textrm{#1}}}}
+
+% Redefine useful commands
+\newcommand{\overbar}[1]{\mkern 1mu\overline{\mkern-1mu#1\mkern-1mu}\mkern 1mu}
+\renewcommand{\tilde}[1]{\widetilde{#1}}
+\renewcommand{\hat}[1]{\widehat{#1}}
+
+% wide geometry setting with minimal margins for full text and online documents
+\newcommand{\onscreengeometry}{\geometry{
+  paper=a5paper, % use a5paper for best on-screen reading experience
+  %includeheadfoot, % include head and foot of page in margin definitions
+  heightrounded, % always good to have that, says the internet
+  inner=1.5cm, % Inner margin
+  outer=1.5cm, % Outer margin
+  top=2cm, % Top margin
+  bottom=3cm, % Bottom margin
+}}
+
+% Symmetric margins for a4paper. A non-symmetric alternative: hoffset=-0.7cm
+\newcommand{\widegeometry}{\geometry{
+  textheight=25cm, % 22.5
+  textwidth=15.5cm,
+  centering,
+  top=1.9cm,
+  headheight=25pt,
+  headsep=12pt,
+  footskip=12pt,
+  footnotesep=24pt plus 2pt minus 12pt,
+  heightrounded,
+}}
+
+% -----------------------------------------------------------------------------
+
+% Hide URLs and DOIs in bibliography and add a link to the title
+\ExecuteBibliographyOptions{doi=false}
+\ExecuteBibliographyOptions{url=false}
+\newbibmacro{string+doiurlisbn}[1]{%
+  \iffieldundef{doi}{%
+    \iffieldundef{url}{%
+      \iffieldundef{isbn}{%
+        \iffieldundef{issn}{%
+          #1%
+        }{%
+          \href{http://books.google.com/books?vid=ISSN\thefield{issn}}{#1}%
+        }%
+      }{%
+        \href{http://books.google.com/books?vid=ISBN\thefield{isbn}}{#1}%
+      }%
+    }{%
+      \href{\thefield{url}}{#1}%
+    }%
+  }{%
+    \href{http://dx.doi.org/\thefield{doi}}{#1}%
+  }%
+}
+
+\DeclareFieldFormat{title}{\usebibmacro{string+doiurlisbn}{\mkbibemph{#1}}}
+\DeclareFieldFormat[article,incollection]{title}{\usebibmacro{string+doiurlisbn}{\mkbibquote{#1}}}
+
+%------------------------------------------------------------------------------
+\endinput
+%------------------------------------------------------------------------------
